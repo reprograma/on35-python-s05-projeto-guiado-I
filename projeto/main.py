@@ -93,6 +93,9 @@ def produto_codigo(codigo):
         if produto['codigo'] == codigo:
             return produto
 
+def novo_produto(produto, quantidade):
+    return{'codigo':produto['codigo','nome':produto['nome'],'valor':produto['valor'],'quantidade':quantidade]}
+
 def imprime_fechamento_caixa(compras):
     pr.imprimir('Data', tamanho=89, alinhar='centro', end='|')
     pr.imprimir('Qt.', tamanho=9, alinhar='centro', end='|')
@@ -222,8 +225,7 @@ def menu():
             try:
                 codigo = int(opcao)
                 produto = produto_codigo(codigo)
-                produto.update({'quantidade':quantidade})
-                compra.append(produto)
+                compra.append(novo_produto(produto,quantidade))
                 quantidade = 1
             except ValueError:
                 erro = 'A opção selecionada não existe no sistema'
