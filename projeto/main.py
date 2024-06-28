@@ -94,7 +94,6 @@ def produto_codigo(codigo):
             return produto
 
 def imprime_fechamento_caixa(compras):
-    pr.limpar_formatacao()
     pr.imprimir('Data', tamanho=89, alinhar='centro', end='|')
     pr.imprimir('Qt.', tamanho=9, alinhar='centro', end='|')
     pr.imprimir('valor', tamanho=20, alinhar='centro')  
@@ -121,8 +120,7 @@ def imprime_compra_fechada(compra,total):
     pr.imprimir('Total', tamanho=107, alinhar='fim', end='|')
     pr.imprimir('R$',str(round(calcula_total(compra), 2)), tamanho=12, alinhar='fim')
     pr.imprimir('Total a pagar', tamanho=107, alinhar='fim', end='|')
-    pr.verde_negrito()
-    pr.imprimir('R$',str(round(total, 2)), tamanho=12, alinhar='fim')
+    pr.imprimir('R$',str(round(total, 2)), tamanho=12, alinhar='fim',cor_texto='verde negrito')
     pr.limpar_formatacao()
     pr.pular_linha()
     pr.pular_linha()
@@ -155,21 +153,16 @@ def imprimir_produto(produto):
 
 def imprimir_cabecalho(erro):
     pr.limpar()
-    pr.retangulo('{reprograma}\nProjeto Guiado 1\nTerminal de Vendas',sv=1,tamanho=100, margem=10,cor_texto='azul',cor_barra='magenta')
+    pr.retangulo('{reprograma}\nProjeto Guiado 1\nTerminal de Vendas',sv=1,tamanho=100, margem=10,cor_texto='azul negrito',cor_barra='magenta')
     pr.separador(120,cor_texto='ciano')
-    pr.limpar_formatacao()
     if(erro != ''):
-        pr.vermelho_negrito()
-        pr.imprimir(erro,tamanho=120,alinhar='centro')
-        pr.limpar_formatacao()
+        pr.imprimir(erro,tamanho=120,alinhar='centro',cor_texto='vermelho negrito')
         pr.separador(120,cor_texto='ciano')
-    pr.limpar_formatacao()
+    erro = ''
     return ''
 
 def imprimir_ajuda():
-    pr.limpar_formatacao()
-    pr.pular_linha()
-    pr.pular_linha()
+    pr.pular_linha(quantidade=2)
     pr.imprimir('[H]   >> Ajuda com o Sistema',alinhar='centro',tamanho=120)
     pr.imprimir('[Q]   >> Sair da Tela ou Sistema',alinhar='centro',tamanho=120)
     pr.imprimir('[N]   >> Cria uma Nova Compra',alinhar='centro',tamanho=120)
@@ -178,11 +171,9 @@ def imprimir_ajuda():
     pr.imprimir('[nnn] >> Adicionar o codigo do produto a compra',alinhar='centro',tamanho=120)
     pr.imprimir('[Xnn] >> Muda a quantidade de itens adicionado',alinhar='centro',tamanho=120)
     pr.imprimir('[E]   >> Encerar caixa',alinhar='centro',tamanho=120)
-    pr.pular_linha()
-    pr.pular_linha()
+    pr.pular_linha(quantidade=2)
 
 def imprimir_rodape():
-    pr.limpar_formatacao()
     pr.imprimir('[H] Ajuda ','[Q] Sair ',caracter='═',tamanho=115,alinhar='fim',end='╣')
 
     return input().lower()
@@ -198,16 +189,12 @@ def menu():
     while(opcao != 'q'):
         erro = imprimir_cabecalho(erro)
         if(tela == ''):
-            pr.pular_linha()
-            pr.pular_linha()
-            pr.pular_linha()
-            pr.pular_linha()
+            pr.pular_linha(quantidade=4)
         elif(tela == 'encerar'):
             imprime_fechamento_caixa(compras)
             compras = []
             tela=''
-            pr.pular_linha()
-            pr.pular_linha()
+            pr.pular_linha(quantidade=2)
         elif(tela == 'ajuda'):
             imprimir_ajuda()
             tela=''
