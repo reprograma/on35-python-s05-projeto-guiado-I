@@ -1,80 +1,62 @@
-<h1 align="center">
-  <img src="assets/reprograma-fundos-claros.png" alt="logo reprograma" width="500">
-</h1>
+![](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/blob/main/assets/reprograma-fundos-claros.png?raw=true)
 
 # Tema da Aula
 
-Turma Online X | Semana X | 202X | Professora X
+Turma Online 35 | Semana 5 | 2024 | Professora [Daniele Junior](https://github.com/DaniDJunior " Daniele Junior")
 
-### Instruções
+## Instruções
 Antes de começar, vamos organizar nosso setup.
 * Fork esse repositório 
 * Clone o fork na sua máquina (Para isso basta abrir o seu terminal e digitar `git clone url-do-seu-repositorio-forkado`)
 * Entre na pasta do seu repositório (Para isso basta abrir o seu terminal e digitar `cd nome-do-seu-repositorio-forkado`)
-* [Add outras intrucoes caso necessario]
+* Abra o VSCode e na pasta Projeto abra o arquivo main
+
+## Antes da Aula
+Antes de começar a codar vamos dar uma olhada no modulo [print_reprograma](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/main/material "print_reprograma")
+
+## O que vamos fazer
+Nessa aula vamos fazer um terminal de vendas (PDV), o pdv é responsavel por adicionar todos os produtos em uma compra e depois mostrar tudo o que foi vendido
+
+Para isso vamos por partes
 
 ### Resumo
 O que veremos na aula de hoje?
-* [Tema1](#tema1)
-* [Tema2](#tema2)
-* [Tema3](#tema3)
+* [P01/Imprimir Cabeçaho](#P01)
+* [P02/Imprimir Rodapé](#P02)
+* [P03/Sair do Sistema](#P03)
+* [P04/Tratar erro](#P04)
+* [P05/Imprimir Ajuda](#P05)
+* [P06/Nova Compra](#P06)
+* [P07/Imprimir Compra Mocada](#P07)
+* [P08/Adicionar Produto](#P08)
+* [P09/Fechar Compra](#P09)
+* [P10/Encerar Caixa](#P10)
+* [P11/Mudar Quantidade](#P11)
 
 ## Conteúdo
-### Tema1 
-1. [Tópico 1](#topico1)
-2. [Tópico 2](#topico2)
-### Tema2 
-1. [Tópico 3](#topico3)
-   * [Subtópico 1](#subtopico1)
-   * [Subtópico 2](#subtopico2)
-   
-### Tema3
-1. [Tópico 4](#topico4)
 
-### Tema1 
+### P01
 
-#### Topico1
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P01/Imprimir-Cabecalho "Código da Branch")
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel, eleifend suscipit nibh. Mauris pharetra dui quis turpis rutrum blandit. Nunc tempor libero tortor, ac commodo erat porttitor ut. Donec vitae orci arcu. Nunc felis mi, maximus a turpis a, mollis pulvinar enim. Vivamus aliquam ante dui, a blandit massa rutrum et. Etiam hendrerit gravida ultrices. Nunc ante massa, dictum eget justo eget, feugiat tincidunt metus.
+Vamos começar imprimindo o cabeçalho, bem leve
 
- #### Topico2
-  - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  - Donec erat mauris, laoreet in tortor vel
-  - Nunc ante massa, dictum eget justo eget, feugiat tincidunt.
+### P02
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel, eleifend suscipit nibh. Mauris pharetra dui quis turpis rutrum blandit.
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
 
-### Tema2
-#### Topico3
-* [Subtópico 1](#subtopico1)
-* [Subtópico 2](#Subtopico2)
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel.
+Nesse ponto vamos imprimir o rodapé e tambem vamos pegar o caracter do comando
+### P03
 
-##### Subtopico1
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel.
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
 
-##### Subtopico2
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel.
+Nesse parte vamos montar o sistema em si, ele não vai parar até que o comando seja 'q'
+### P04
 
-### Tema3
-#### Topico4
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel, eleifend suscipit nibh. Mauris pharetra dui quis turpis rutrum blandit. Nunc tempor libero tortor, ac commodo erat porttitor ut. Donec vitae orci arcu. Nunc felis mi, maximus a turpis a, mollis pulvinar enim. Vivamus aliquam ante dui, a blandit massa rutrum et. Etiam hendrerit gravida ultrices.
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
 
+Um ponto principal de todos os sistemas é tratar o erro
 ***
 ### Exercícios 
 * [Exercicio para sala](https://github.com/mflilian/repo-example/tree/main/exercicios/para-sala)
 * [Exercicio para casa](https://github.com/mflilian/repo-example/tree/main/exercicios/para-casa)
-
-### Material da aula 
-
-### Links Úteis
-- [Lorem Ipsum](https://www.lipsum.com/feed/html)
-- [Lorem Ipsum](https://www.lipsum.com/feed/html)
-- [Lorem Ipsum](https://www.lipsum.com/feed/html)
-- [Lorem Ipsum](https://www.lipsum.com/feed/html)
-
-
-<p align="center">
-Desenvolvido com :purple_heart:  
-</p>
-
