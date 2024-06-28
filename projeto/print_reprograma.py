@@ -1,5 +1,3 @@
-cor_texto = ''
-
 def get_cor():
     print(cor_texto)
 
@@ -79,8 +77,59 @@ def cor(cor):
         ciano()
     elif(cor == 'cinza'):
         cinza()
+    elif(cor == 'w'):
+        branco()
+    elif(cor == 'r'):
+        vermelho()
+    elif(cor == 'g'):
+        verde()
+    elif(cor == 'y'):
+        amarelo()
+    elif(cor == 'b'):
+        azul()
+    elif(cor == 'm'):
+        magenta()
+    elif(cor == 'c'):
+        ciano()
+    elif(cor == 'gr'):
+        cinza()
+    elif(cor == 'branco negrito'):
+        branco_negrito()
+    elif(cor == 'vermelho negrito'):
+        vermelho_negrito()
+    elif(cor == 'verde negrito'):
+        verde_negrito()
+    elif(cor == 'amarelo negrito'):
+        amarelo_negrito()
+    elif(cor == 'azul negrito'):
+        azul_negrito()
+    elif(cor == 'magenta negrito'):
+        magenta_negrito()
+    elif(cor == 'ciano negrito'):
+        ciano_negrito()
+    elif(cor == 'cinza negrito'):
+        cinza_negrito()
+    elif(cor == 'wb'):
+        branco_negrito()
+    elif(cor == 'rb'):
+        vermelho_negrito()
+    elif(cor == 'gb'):
+        verde_negrito()
+    elif(cor == 'yb'):
+        amarelo_negrito()
+    elif(cor == 'bb'):
+        azul_negrito()
+    elif(cor == 'mb'):
+        magenta_negrito()
+    elif(cor == 'cb'):
+        ciano_negrito()
+    elif(cor == 'grb'):
+        cinza_negrito()
+    elif(cor == 'negrito'):
+        negrito()
 
-def imprimir(*textos, sep=' ',end='\n', caracter = ' ', tamanho=0, alinhar='comeco'):
+def imprimir(*textos, sep=' ',end='\n', caracter = ' ', tamanho=0, alinhar='comeco', cor_texto=''):
+    cor(cor_texto)
     tamanho_total = 0
     for texto in textos:
         tamanho_total += len(texto)
@@ -123,12 +172,14 @@ def imprimir(*textos, sep=' ',end='\n', caracter = ' ', tamanho=0, alinhar='come
 
     print(end, end='')
 
+    limpar_formatacao()
+
 def separador(tamanho,caracter = '═', cor_texto=''):
     cor(cor_texto)
     for i in range(tamanho):
         print(caracter,end='')
     print('\n')
-
+    limpar_formatacao()
 
 def retangulo(texto,sv=0,sh=0,tamanho=0,cor_barra = '', cor_texto = '',margem=0):
     linhas = texto.split('\n')
@@ -186,9 +237,11 @@ def retangulo(texto,sv=0,sh=0,tamanho=0,cor_barra = '', cor_texto = '',margem=0)
         print(margem_texto,'║',sh_texto_ini,texto_branco,sh_texto_fim,'║',sep='')
 
     print(margem_texto,'╚',sh_barra_ini,texto_barra,sh_barra_fim,'╝',sep='')
+    limpar_formatacao()
 
-def pular_linha():
-    print('')
+def pular_linha(quantidade = 1):
+    for i in range(quantidade):
+        print('')
 
 def limpar():
     print(chr(27) + "[2J")
