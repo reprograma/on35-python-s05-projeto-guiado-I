@@ -177,6 +177,7 @@ def menu():
     erro = ''
     tela = ''
     compra = []
+    compras = []
     while(opcao != 'q'):
         imprimir_cabecalho(erro)
         if(tela == ''):
@@ -196,12 +197,15 @@ def menu():
         elif(opcao == 'f'):
             total = calcula_total_desconto(compra)
             tela = 'fechar'
+        elif('p' in opcao):
+            compras.append({'itens':compra, 'total':total, 'data': datetime.now()})
+            compra = []
+            tela = ''
         else:
             try:
                 codigo = int(opcao)
                 produto = produto_codigo(codigo)
                 compra.append(novo_produto(produto,1))
-                quantidade = 1
             except ValueError:
                 erro = 'A opção selecionada não existe no sistema'
 
