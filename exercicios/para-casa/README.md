@@ -1,10 +1,23 @@
 # Exercício de Casa 🏠 
 
-## Nome do Exercicio
+## Exercício básico (obrigatorio)
 
-- Explicação do exercício: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci.
-Donec erat mauris, laoreet in tortor vel, eleifend suscipit nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Aliquam leo nibh, tempus sed rhoncus et, ultrices vitae orci. Donec erat mauris, laoreet in tortor vel, eleifend suscipit nibh. 
+- Dentro da função que calcula o total a ser pago pela compra vc deve calcula o desconto da segunte forma:
+Se a compra for mais que 100 reias dá 10% de desconto no total da compra
+Se a compra tiver mais de um item com o código 10, dar 50% de desconto no segundo item
+
+## Exercício avançado (opcional)
+
+- Implementar a quantidade de itens, quando a pessoa digitar 'x' e um numero na frente, vc deve mudar a quantidade de intens daquele produto para o número que foi digita na frente, exemplo:
+
+x2 - quantidade = 2
+x4 - quantidade = 4
+x7 - quantidade = 7
+
+## Exercício ninja (opcional)
+
+- Implementar o cancelamento de um item na compra, esse cancelamento deve ser feito da forma como vc achar melhor, vc é livre pra escolher o seu jeito
+
 ---
 
 Terminou o exercício? Dá uma olhada nessa checklist e confere se tá tudo certinho, combinado?!
