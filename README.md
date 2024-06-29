@@ -56,6 +56,41 @@ Nesse parte vamos montar o sistema em si, ele não vai parar até que o comando 
 [Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
 
 Um ponto principal de todos os sistemas é tratar o erro
+### P05
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Imprimir a tela de ajuda com todos os comandos disponiveis no sistema
+### P06
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Fazer o fluxo de nova compra
+### P07
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Imprimir compras mocadas (o termo mocado é quando é um valor fixo que vamos usar só para teste)
+### P08
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Adicionar um novo produto dinamicamente na lista de compra
+### P09
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Fechar a compra e mostrar o total e o total a pagar (o total a pagar é o total com desconto que será calculado mais pra frente)
+### P10
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Encerrar o caixa, vamos totalizar todas a comprar mostrando o total que foi vendido naquele caixa
+### P11
+
+[Código da Branch](https://github.com/reprograma/on35-python-s05-projeto-guiado-I/tree/P02/Imprime-Rodap%C3%A9 "Código da Branch")
+
+Implementar a mudança de quantidade na compra
 ***
 ### Exercícios 
 * [Exercicio para sala](https://github.com/mflilian/repo-example/tree/main/exercicios/para-sala)
