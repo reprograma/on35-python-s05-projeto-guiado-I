@@ -261,7 +261,7 @@ def valor_total_pagar(compra):
     #Atividade Básica
     #Dar 10% de desconto para compras acima de 100 reias
 
-    if(total > 100):
+    if total > 100:
         descontos.append({'descricao':'10% de desconto na compra acima de R$ 100,00','valor':(total * 0.1)})
         total = total * (1 - 0.10)
 
