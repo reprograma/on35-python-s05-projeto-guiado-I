@@ -1,5 +1,4 @@
-def get_cor():
-    print(cor_texto)
+
 
 def branco():
     cor_texto = 'branco'
