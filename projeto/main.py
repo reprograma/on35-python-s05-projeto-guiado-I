@@ -236,23 +236,37 @@ def imprimir_caixa_encerrada(compras):
 #Prepara a função que vai calcular o total a ser pago na compra
 def valor_total_pagar(compra):
     #cria uma variavel temporaria do total da compra
+    descontos = []
     total = 0
     #para cada item da compra ele faz o calculo
+
+    quantidade_codigo_10 = 0 
+
     for item in compra:
         
         #Atividade Básica
         #Se tiver mais de 2 itens do código 10, dar 50% de desconto no segundo item
+        if(item["codigo"] == 10):
+            quantidade_codigo_10 += item["quantidade"]
 
         #calcula o valor do item e soma no total
         total += item['valor'] * item['quantidade']
 
+        if(quantidade_codigo_10 >= 2):
+            produto_10 = produto_codigo(10)
+            total = total - produto_10["valor"] * (1 - 0.5)
+            descontos.append({"descricao":'50% no segundo produto' + produto_10['nome'], 'valor': (produto_10['valor'] * 0.5)})
+
     #Atividade Básica
     #Dar 10% de desconto para compras acima de 100 reias
+
+if(total > 100):
+    total = total * (1 - 0.10)
 
     #Calcular o desconto
 
     #retorna o total calculado
-    return total
+    return {'valor':total, 'descontos':descontos}
 
 
 #Declarando e inicializando as variaveis que vamos usar no controle das telas e dos comandos
@@ -282,10 +296,10 @@ while(True):
         tela=''
     elif(tela == 'nova'):
         #chama a função da tela de nova compra
-        imprimir_nova_compra(compra)
+        imprimir_nova_compra(compra,quantidade)
     elif(tela == 'fechada'):
         #Chama a função de compra fechada
-        imprimir_compra_fechada(compra,total_compra)
+        imprimir_compra_fechada(compra,total_compra, descontos_compra)
     elif(tela == 'encerrar'):
         #Chama a função de caixa encerrado
         imprimir_caixa_encerrada(compras)
@@ -307,7 +321,9 @@ while(True):
         #se for 'f' seta a variavel de tela para uma compra fechada
         tela = 'fechada'
         #calcula o total que deve ser pago na compra e guarda em uma variavel
-        total_compra = valor_total_pagar(compra)
+        total_calculado = valor_total_pagar(compra)
+        total_compra = total_calculado['valor']
+        descontos_compra = total_calculado['descontos']
     elif(opcao == 'p'):
         #se for 'p' fecha a compra e marca ela como paga
         #adiciona a compra na lista e compras
@@ -333,8 +349,9 @@ while(True):
                 'codigo':produto['codigo'],
                 'nome':produto['nome'],
                 'valor':produto['valor'],
-                'quantidade':1
+                'quantidade':quantidade
             })
+            quantidade = 1
         except:
             #se eu não conseguir é pq ainda é uma opção invalida
             #se não for nenhum comando válido dá uma mensagem de erro
