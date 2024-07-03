@@ -283,8 +283,7 @@ descontos_compra = []
 quantidade = 1
 #definindo nosso laço de repetição, cada vez que esse laço executar é uma interação que o programa irá fazer
 #isso é, a cada passo ele faz um novo comado
-#while((opcao != 's') and (opcao != 'sair')):
-while(True):
+while((opcao != 's') and (opcao != 'sair')):
     #Chama a função declarada acima para imprimir o cabeçalho e o erro
     imprimir_cabecalho(erro)
     #sempre apaga o ultimo erro exibido
@@ -313,10 +312,7 @@ while(True):
     opcao = imprimir_rodape()
 
     #analisando o comando que foi digitado e tomando uma decisão
-    if(opcao == 's'):
-        #se for 's' para o looping e sai do sistema
-        break
-    elif(opcao == 'h'):
+    if(opcao == 'h'):
         #se for 'h' seta a variavel de tela para entrar na tela de ajuda
         tela = 'ajuda'
     elif(opcao == 'n'):
