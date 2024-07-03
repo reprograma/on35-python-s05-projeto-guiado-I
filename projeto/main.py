@@ -136,7 +136,7 @@ def imprimir_tela_ajuda():
     #Atividade avançada
     #Mudar a quantidade do produto, da forma descrita abaixo
 
-    pr.imprimir('[x00]  - Muda a quantidade para o valor 00 informado')
+    pr.imprimir('[X00]  - Muda a quantidade para o valor 00 informado')
 
     #Atividade ninja
     #Cancelar uma item que foi comprado, invente uma fora de cancelar ele
@@ -145,7 +145,7 @@ def imprimir_tela_ajuda():
 
 
 #Preparando a função para imprimir a compra fechada
-def imprimir_compra_fechada(compra, valor_total):
+def imprimir_compra_fechada(compra, valor_total, descontos):
     #se tiver informação imprime a tabela com as compras
     pr.imprimir('codigo',tamanho=6,end='│',alinhar='centro')
     pr.imprimir('produto',tamanho=83,end='│',alinhar='centro')
@@ -161,20 +161,23 @@ def imprimir_compra_fechada(compra, valor_total):
         pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
         pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
         pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-        pr.imprimir('R$',str(item['valor']),tamanho=12,end='│',alinhar='fim')
-        pr.imprimir('R$',str(item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
+        pr.imprimir('R$',str(round(item['valor'],2)),tamanho=12,end='│',alinhar='fim')
+        pr.imprimir('R$',str(round(item['valor'] * item['quantidade'],2)),tamanho=12,alinhar='fim')
         #calcula o total desse item e adiciona na variavel de subtotal
         total += item['valor'] * item['quantidade']
     pr.separador(120,caracter='─')
     #imprime o valor do total
     pr.imprimir('Total',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(total),tamanho=12,alinhar='fim')
+    pr.imprimir('R$',str(round(total,2)),tamanho=12,alinhar='fim')
     #imprime o valor total a pagar que é passado como parametro
+    for desconto in descontos:
+        pr.imprimir(desconto['descricao'],tamanho=107,end='│',alinhar='fim')
+        pr.imprimir('-R$',str(round(desconto['valor'],2)),tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
     pr.imprimir('Total a pagar',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(valor_total),tamanho=12,alinhar='fim',cor_texto='verde negrito')
+    pr.imprimir('R$',str(round(valor_total,2)),tamanho=12,alinhar='fim',cor_texto='verde negrito')
 
 #Preparando a função para uma nova compra
-def imprimir_nova_compra(compra):
+def imprimir_nova_compra(compra,quantidade):
     #Verifica se a compra passada está vazia
     if(len(compra) > 0 ):
         #se tiver informação imprime a tabela com as compras
@@ -192,14 +195,16 @@ def imprimir_nova_compra(compra):
             pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
             pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
             pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-            pr.imprimir('R$',str(item['valor']),tamanho=12,end='│',alinhar='fim')
-            pr.imprimir('R$',str(item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
+            pr.imprimir('R$',str(round(item['valor'],2)),tamanho=12,end='│',alinhar='fim')
+            pr.imprimir('R$',str(round(item['valor'] * item['quantidade'],2)),tamanho=12,alinhar='fim')
             #calcula o total desse item e adiciona na variavel de subtotal
             subtotal += item['valor'] * item['quantidade']
+        if(quantidade > 1):
+            pr.imprimir('x',str(quantidade),alinhar='fim',tamanho=120)
         pr.separador(120,caracter='─')
         #imprime o valor do subtotal
         pr.imprimir('Subtotal',tamanho=107,end='│',alinhar='fim')
-        pr.imprimir('R$',str(subtotal),tamanho=12,alinhar='fim')
+        pr.imprimir('R$',str(round(subtotal,2)),tamanho=12,alinhar='fim')
     else:
         #se a compra estiver vazia imprime uma informações
         pr.pular_linha(quantidade=2)
@@ -226,34 +231,49 @@ def imprimir_caixa_encerrada(compras):
         #%s segundos
         pr.imprimir(compra['data'].strftime("%d/%m/%Y %H:%M:%S"),tamanho=92,end='│',alinhar='fim')
         pr.imprimir(str(len(compra['compra'])),tamanho=6,end='│',alinhar='centro')
-        pr.imprimir('R$',str(compra['valor']),tamanho=20,alinhar='fim')
+        pr.imprimir('R$',str(round(compra['valor'],2)),tamanho=20,alinhar='fim')
         #soma todos os valores de compras
         total += compra['valor']
     pr.separador(120,caracter='─')
     #imprime o valor do total
     pr.imprimir('Total de vendas do caixa',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(total),tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
+    pr.imprimir('R$',str(round(total,2)),tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
 
 #Prepara a função que vai calcular o total a ser pago na compra
 def valor_total_pagar(compra):
     #cria uma variavel temporaria do total da compra
+    descontos = []
     total = 0
     #para cada item da compra ele faz o calculo
+
+    quantidade_codigo_10 = 0
+
     for item in compra:
         
         #Atividade Básica
         #Se tiver mais de 2 itens do código 10, dar 50% de desconto no segundo item
+        if(item['codigo']==10):
+            quantidade_codigo_10 += item['quantidade']
 
         #calcula o valor do item e soma no total
-        total += item['valor'] * item['quantidade']
+        total = total + (item['valor'] * item['quantidade'])
+
+    if(quantidade_codigo_10 >= 2):
+        produto_10 = produto_codigo(10)
+        total = total - produto_10['valor'] * (1 - 0.5)
+        descontos.append({'descricao':'50% no segundo produto ' + produto_10['nome'],'valor':(produto_10['valor'] * 0.5)})
 
     #Atividade Básica
     #Dar 10% de desconto para compras acima de 100 reias
 
+    if(total > 100):
+        descontos.append({'descricao':'10% de desconto na compra acima de R$ 100,00','valor':(total * 0.1)})
+        total = total * (1 - 0.10)
+
     #Calcular o desconto
 
     #retorna o total calculado
-    return total
+    return {'valor':total, 'descontos':descontos}
 
 
 #Declarando e inicializando as variaveis que vamos usar no controle das telas e dos comandos
@@ -263,6 +283,8 @@ tela = ''
 compra = []
 compras = []
 total_compra = 0
+descontos_compra = []
+quantidade = 1
 #definindo nosso laço de repetição, cada vez que esse laço executar é uma interação que o programa irá fazer
 #isso é, a cada passo ele faz um novo comado
 #while((opcao != 's') and (opcao != 'sair')):
@@ -283,10 +305,10 @@ while(True):
         tela=''
     elif(tela == 'nova'):
         #chama a função da tela de nova compra
-        imprimir_nova_compra(compra)
+        imprimir_nova_compra(compra,quantidade)
     elif(tela == 'fechada'):
         #Chama a função de compra fechada
-        imprimir_compra_fechada(compra,total_compra)
+        imprimir_compra_fechada(compra,total_compra,descontos_compra)
     elif(tela == 'encerrar'):
         #Chama a função de caixa encerrado
         imprimir_caixa_encerrada(compras)
@@ -308,7 +330,9 @@ while(True):
         #se for 'f' seta a variavel de tela para uma compra fechada
         tela = 'fechada'
         #calcula o total que deve ser pago na compra e guarda em uma variavel
-        total_compra = valor_total_pagar(compra)
+        total_calculado = valor_total_pagar(compra)
+        total_compra = total_calculado['valor']
+        descontos_compra = total_calculado['descontos']
     elif(opcao == 'p'):
         #se for 'p' fecha a compra e marca ela como paga
         #adiciona a compra na lista e compras
@@ -324,6 +348,8 @@ while(True):
     elif(opcao == 'e'):
         #se for 'e' vai para a tela de encerrar caixa
         tela = 'encerrar'
+    elif('x' in opcao):#x1 x2 x3 x4
+        quantidade = int(opcao.replace('x',''))
     else:
         #tentando converter a opção num inteiro
         try:
@@ -334,8 +360,9 @@ while(True):
                 'codigo':produto['codigo'],
                 'nome':produto['nome'],
                 'valor':produto['valor'],
-                'quantidade':1
+                'quantidade':quantidade
             })
+            quantidade = 1
         except:
             #se eu não conseguir é pq ainda é uma opção invalida
             #se não for nenhum comando válido dá uma mensagem de erro
