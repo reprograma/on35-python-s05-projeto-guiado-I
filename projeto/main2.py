@@ -132,7 +132,7 @@ def imprimir_tela_ajuda():
     pr.imprimir('[P]   - Compra foi paga')
     pr.imprimir('[E]   - Encerrar o caixa')
     pr.imprimir('[X00] - Muda a quantidade para o valor 00 informado')
-    pr.imprimir('[C00] - Cancela o produto do código 00')
+    pr.imprimir('[C00] - Cancela os produtos do item com id 00')
     pr.imprimir('[A]   - Abandona a compra atual')
     pr.pular_linha(quantidade=2)
 
@@ -140,8 +140,9 @@ def imprimir_tela_ajuda():
 #Preparando a função para imprimir a compra fechada
 def imprimir_compra_fechada(compra, valor_total,descontos):
     #se tiver informação imprime a tabela com as compras
+    pr.imprimir('id',tamanho=3,end='│',alinhar='centro')
     pr.imprimir('codigo',tamanho=6,end='│',alinhar='centro')
-    pr.imprimir('produto',tamanho=83,end='│',alinhar='centro')
+    pr.imprimir('produto',tamanho=79,end='│',alinhar='centro')
     pr.imprimir('qnt',tamanho=3,end='│',alinhar='centro')
     pr.imprimir('valor un.',tamanho=12,end='│',alinhar='centro')
     pr.imprimir('valor',tamanho=12,alinhar='centro')
@@ -150,14 +151,25 @@ def imprimir_compra_fechada(compra, valor_total,descontos):
     total = 0
     #executa um lanço para cada item dentro da compra
     for item in compra:
-        #imprime a informação de cada item
-        pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
-        pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
-        pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-        pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
-        pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
-        #calcula o total desse item e adiciona na variavel de subtotal
-        total += item['valor'] * item['quantidade']
+        if(item['id'] == 0):
+            pr.imprimir(' ',tamanho=3,end='│')
+            pr.imprimir(' ',tamanho=6,end='│')
+            pr.imprimir(item['nome'],tamanho=79,end='│',caracter='.')
+            pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
+            pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+            pr.imprimir('-R$','%.2f' % (item['valor'] * item['quantidade']),cor_texto='vermelho',tamanho=12,alinhar='fim')
+            #calcula o total desse item e adiciona na variavel de subtotal
+            total -= item['valor'] * item['quantidade']
+        else:
+            #imprime a informação de cada item
+            pr.imprimir(str(item['id']),tamanho=3,end='│')
+            pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
+            pr.imprimir(item['nome'],tamanho=79,end='│',caracter='.')
+            pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
+            pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+            pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
+            #calcula o total desse item e adiciona na variavel de subtotal
+            total += item['valor'] * item['quantidade']
     pr.separador(120,caracter='─')
     #imprime o valor do total
     pr.imprimir('Total',tamanho=107,end='│',alinhar='fim')
@@ -174,8 +186,9 @@ def imprimir_nova_compra(compra,quantidade_atual):
     #Verifica se a compra passada está vazia
     if(len(compra) > 0 ):
         #se tiver informação imprime a tabela com as compras
+        pr.imprimir('id',tamanho=3,end='│',alinhar='centro')
         pr.imprimir('codigo',tamanho=6,end='│',alinhar='centro')
-        pr.imprimir('produto',tamanho=83,end='│',alinhar='centro')
+        pr.imprimir('produto',tamanho=79,end='│',alinhar='centro')
         pr.imprimir('qnt',tamanho=3,end='│',alinhar='centro')
         pr.imprimir('valor un.',tamanho=12,end='│',alinhar='centro')
         pr.imprimir('valor',tamanho=12,alinhar='centro')
@@ -184,14 +197,25 @@ def imprimir_nova_compra(compra,quantidade_atual):
         subtotal = 0
         #executa um lanço para cada item dentro da compra
         for item in compra:
-            #imprime a informação de cada item
-            pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
-            pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
-            pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-            pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
-            pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
-            #calcula o total desse item e adiciona na variavel de subtotal
-            subtotal += item['valor'] * item['quantidade']
+            if(item['id'] == 0):
+                pr.imprimir(' ',tamanho=3,end='│')
+                pr.imprimir(' ',tamanho=6,end='│')
+                pr.imprimir(item['nome'],tamanho=79,end='│',caracter='.')
+                pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
+                pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+                pr.imprimir('-R$','%.2f' % (item['valor'] * item['quantidade']),cor_texto='vermelho',tamanho=12,alinhar='fim')
+                #calcula o total desse item e adiciona na variavel de subtotal
+                subtotal -= item['valor'] * item['quantidade']
+            else:
+                #imprime a informação de cada item
+                pr.imprimir(str(item['id']),tamanho=3,end='│')
+                pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
+                pr.imprimir(item['nome'],tamanho=79,end='│',caracter='.')
+                pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
+                pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+                pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
+                #calcula o total desse item e adiciona na variavel de subtotal
+                subtotal += item['valor'] * item['quantidade']
         if(quantidade_atual > 1):
             pr.imprimir('x',str(quantidade_atual),tamanho=120,alinhar='fim')
         pr.separador(120,caracter='─')
@@ -241,12 +265,18 @@ def valor_total_pagar(compra):
     #para cada item da compra ele faz o calculo
     for item in compra:
         if(item['codigo'] == 10):
-            itens_codigo_10 += item['quantidade']
+            if(item['id'] != 0):
+                itens_codigo_10 += item['quantidade']
+            else:
+                itens_codigo_10 -= item['quantidade']
         #Atividade Básica
         #Se tiver mais de 2 itens do código 10, dar 50% de desconto no segundo item
 
         #calcula o valor do item e soma no total
-        total += item['valor'] * item['quantidade']
+        if(item['id'] != 0):
+            total += item['valor'] * item['quantidade']
+        else:
+            total -= item['valor'] * item['quantidade']
 
 
     if(itens_codigo_10 >= 2):
@@ -370,16 +400,19 @@ while(True):
     elif('c' in opcao):
         if(tela=='nova'):
             try:
-                codigo_produto = int(opcao.replace('c',''))
+                id_cancela = int(opcao.replace('c',''))
                 for item in compra:
-                    if(item['codigo'] == codigo_produto):
-                        if(item['quantidade'] > 1):
-                            item['quantidade'] -= 1
-                        else:
-                            compra.remove(item)
+                    if(item['id'] == id_cancela):
+                        compra.append({
+                            'id':0,
+                            'codigo':item['codigo'],
+                            'nome':'Cancelar id ' + str(item['id']),
+                            'valor':item['valor'],
+                            'quantidade':item['quantidade']
+                        })
                         break
                 else:
-                    erro = 'Esse código não foi adicionado na compra'
+                    erro = 'Esse id não foi adicionado na compra'
             except:
                 erro = 'A código precisa ser um numero inteiro'
         else:
@@ -393,6 +426,7 @@ while(True):
                 produto = produto_codigo(codigo_produto)
                 if(produto != None):
                     compra.append({
+                        'id':len(compra) + 1,
                         'codigo':produto['codigo'],
                         'nome':produto['nome'],
                         'valor':produto['valor'],
