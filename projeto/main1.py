@@ -1,6 +1,5 @@
 import print_reprograma as pr
 from datetime import datetime
-import time
 
 produtos = [
     {'codigo':1,'nome':'Book - Computer Fundamentals & Office Tools For Smart Students - Volume 1','valor':10.00},
@@ -125,27 +124,21 @@ def imprimir_tela_inicial():
 def imprimir_tela_ajuda():
     #imprimindo o texto de ajuda
     pr.pular_linha(quantidade=2)
-    pr.imprimir('[H]  - Abre a tela de ajuda com todos os comandos', tamanho=120)
-    pr.imprimir('[S]  - Fecha o sistema inteiro',tamanho=120)
-    pr.imprimir('[N]  - Abre uma nova compra')
-    pr.imprimir('[00] - Adiciona o codigo 00 do produto na compra')
-    pr.imprimir('[F]  - Fechar a compra que está em aberto')
-    pr.imprimir('[P]  - Compra foi paga')
-    pr.imprimir('[E]  - Encerrar o caixa')
-
-    #Atividade avançada
-    #Mudar a quantidade do produto, da forma descrita abaixo
-
-    pr.imprimir('[X00]  - Muda a quantidade para o valor 00 informado')
-
-    #Atividade ninja
-    #Cancelar uma item que foi comprado, invente uma fora de cancelar ele
-    pr.imprimir('[R00] - Remover item da compra com o código 00 informado' )
+    pr.imprimir('[H]   - Abre a tela de ajuda com todos os comandos', tamanho=120)
+    pr.imprimir('[S]   - Fecha o sistema inteiro',tamanho=120)
+    pr.imprimir('[N]   - Abre uma nova compra')
+    pr.imprimir('[00]  - Adiciona o codigo 00 do produto na compra')
+    pr.imprimir('[F]   - Fechar a compra que está em aberto')
+    pr.imprimir('[P]   - Compra foi paga')
+    pr.imprimir('[E]   - Encerrar o caixa')
+    pr.imprimir('[X00] - Muda a quantidade para o valor 00 informado')
+    pr.imprimir('[C00] - Cancela o produto do código 00')
+    pr.imprimir('[A]   - Abandona a compra atual')
     pr.pular_linha(quantidade=2)
 
 
 #Preparando a função para imprimir a compra fechada
-def imprimir_compra_fechada(compra, valor_total, descontos):
+def imprimir_compra_fechada(compra, valor_total,descontos):
     #se tiver informação imprime a tabela com as compras
     pr.imprimir('codigo',tamanho=6,end='│',alinhar='centro')
     pr.imprimir('produto',tamanho=83,end='│',alinhar='centro')
@@ -161,23 +154,23 @@ def imprimir_compra_fechada(compra, valor_total, descontos):
         pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
         pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
         pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-        pr.imprimir('R$',str(round(item['valor'],2)),tamanho=12,end='│',alinhar='fim')
-        pr.imprimir('R$',str(round(item['valor'] * item['quantidade'],2)),tamanho=12,alinhar='fim')
+        pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+        pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
         #calcula o total desse item e adiciona na variavel de subtotal
         total += item['valor'] * item['quantidade']
     pr.separador(120,caracter='─')
     #imprime o valor do total
     pr.imprimir('Total',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(round(total,2)),tamanho=12,alinhar='fim')
-    #imprime o valor total a pagar que é passado como parametro
+    pr.imprimir('R$','%.2f' % total,tamanho=12,alinhar='fim')
     for desconto in descontos:
         pr.imprimir(desconto['descricao'],tamanho=107,end='│',alinhar='fim')
-        pr.imprimir('-R$',str(round(desconto['valor'],2)),tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
+        pr.imprimir('-R$','%.2f' % desconto['valor'],tamanho=12,alinhar='fim',cor_texto='vermelho negrito')    
+    #imprime o valor total a pagar que é passado como parametro
     pr.imprimir('Total a pagar',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(round(valor_total,2)),tamanho=12,alinhar='fim',cor_texto='verde negrito')
+    pr.imprimir('R$','%.2f' % valor_total,tamanho=12,alinhar='fim',cor_texto='verde negrito')
 
 #Preparando a função para uma nova compra
-def imprimir_nova_compra(compra,quantidade):
+def imprimir_nova_compra(compra,quantidade_atual):
     #Verifica se a compra passada está vazia
     if(len(compra) > 0 ):
         #se tiver informação imprime a tabela com as compras
@@ -195,37 +188,21 @@ def imprimir_nova_compra(compra,quantidade):
             pr.imprimir(str(item['codigo']),tamanho=6,end='│',alinhar='fim',caracter='0')
             pr.imprimir(item['nome'],tamanho=83,end='│',caracter='.')
             pr.imprimir(str(item['quantidade']),tamanho=3,end='│',alinhar='fim')
-            pr.imprimir('R$',str(round(item['valor'],2)),tamanho=12,end='│',alinhar='fim')
-            pr.imprimir('R$',str(round(item['valor'] * item['quantidade'],2)),tamanho=12,alinhar='fim')
+            pr.imprimir('R$','%.2f' % item['valor'],tamanho=12,end='│',alinhar='fim')
+            pr.imprimir('R$','%.2f' % (item['valor'] * item['quantidade']),tamanho=12,alinhar='fim')
             #calcula o total desse item e adiciona na variavel de subtotal
             subtotal += item['valor'] * item['quantidade']
-        if(quantidade > 1):
-            pr.imprimir('x',str(quantidade),alinhar='fim',tamanho=120)
+        if(quantidade_atual > 1):
+            pr.imprimir('x',str(quantidade_atual),tamanho=120,alinhar='fim')
         pr.separador(120,caracter='─')
         #imprime o valor do subtotal
         pr.imprimir('Subtotal',tamanho=107,end='│',alinhar='fim')
-        pr.imprimir('R$',str(round(subtotal,2)),tamanho=12,alinhar='fim')
+        pr.imprimir('R$','%.2f' % subtotal,tamanho=12,alinhar='fim')
     else:
         #se a compra estiver vazia imprime uma informações
         pr.pular_linha(quantidade=2)
         pr.imprimir('Essa compra não tem itens ainda',tamanho=120,alinhar='centro')
         pr.pular_linha(quantidade=2)
-
-
-def remover_item_codigo(compra, codigo_produto):
-    item_encontrado = False
-    for item in compra:
-        if item["codigo"] == codigo_produto:
-            compra.remove(item)
-            pr.imprimir("O produto com o código", str(codigo_produto), "foi removido", alinhar="centro", tamanho=120, cor_texto="vermelho negrito")
-            item_encontrado = True
-            time.sleep(3)
-            break  # Saia do loop após remover o item
-    
-    if not item_encontrado:
-        pr.imprimir("O item com o código", str(codigo_produto), "não foi encontrado na compra",alinhar="centro", tamanho=120, cor_texto="vermelho negrito")
-        time.sleep(3)
-
 
 #Prepara a função para imprimir as compras do caixa quando ele for fechado
 def imprimir_caixa_encerrada(compras):
@@ -247,55 +224,54 @@ def imprimir_caixa_encerrada(compras):
         #%s segundos
         pr.imprimir(compra['data'].strftime("%d/%m/%Y %H:%M:%S"),tamanho=92,end='│',alinhar='fim')
         pr.imprimir(str(len(compra['compra'])),tamanho=6,end='│',alinhar='centro')
-        pr.imprimir('R$',str(round(compra['valor'],2)),tamanho=20,alinhar='fim')
+        pr.imprimir('R$','%.2f' % compra['valor'],tamanho=20,alinhar='fim')
         #soma todos os valores de compras
         total += compra['valor']
     pr.separador(120,caracter='─')
     #imprime o valor do total
     pr.imprimir('Total de vendas do caixa',tamanho=107,end='│',alinhar='fim')
-    pr.imprimir('R$',str(round(total,2)),tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
+    pr.imprimir('R$','%.2f' % total,tamanho=12,alinhar='fim',cor_texto='vermelho negrito')
 
 #Prepara a função que vai calcular o total a ser pago na compra
 def valor_total_pagar(compra):
-    #cria uma variavel temporaria do total da compra
     descontos = []
+    #cria uma variavel temporaria do total da compra
+    itens_codigo_10 = 0
     total = 0
     #para cada item da compra ele faz o calculo
-
-    quantidade_codigo_10 = 0
-
     for item in compra:
-        
+        if(item['codigo'] == 10):
+            itens_codigo_10 += item['quantidade']
         #Atividade Básica
         #Se tiver mais de 2 itens do código 10, dar 50% de desconto no segundo item
-        if(item['codigo']==10):
-            quantidade_codigo_10 += item['quantidade']
 
         #calcula o valor do item e soma no total
-        total = total + (item['valor'] * item['quantidade'])
+        total += item['valor'] * item['quantidade']
 
-    if(quantidade_codigo_10 >= 2):
+
+    if(itens_codigo_10 >= 2):
         produto_10 = produto_codigo(10)
-        total = total - produto_10['valor'] * (1 - 0.5)
-        descontos.append({'descricao':'50% no segundo produto ' + produto_10['nome'],'valor':(produto_10['valor'] * 0.5)})
+        descontos.append({'descricao':'50% de desconto na segunda compra do ' + produto_10['nome'],'valor':(produto_10['valor'] * 0.5)})
+        total = total - produto_10['valor'] * 0.5
 
     #Atividade Básica
     #Dar 10% de desconto para compras acima de 100 reias
 
     if(total > 100):
-        descontos.append({'descricao':'10% de desconto na compra acima de R$ 100,00','valor':(total * 0.1)})
-        total = total * (1 - 0.10)
+        descontos.append({'descricao':'10% acima de R$ 100','valor':(total * 0.1)})
+        total = total * 0.9
 
     #Calcular o desconto
 
     #retorna o total calculado
-    return {'valor':total, 'descontos':descontos}
+    return {'total': total, 'descontos':descontos}
 
 
 #Declarando e inicializando as variaveis que vamos usar no controle das telas e dos comandos
 opcao = ''
 erro = ''
 tela = ''
+tela_memoria = ''
 compra = []
 compras = []
 total_compra = 0
@@ -318,7 +294,7 @@ while(True):
         #Chama a função da tela de ajuda
         imprimir_tela_ajuda()
         #Sempre volta pra tela inicial depois de passar pela tela de ajuda
-        tela=''
+        tela=tela_memoria
     elif(tela == 'nova'):
         #chama a função da tela de nova compra
         imprimir_nova_compra(compra,quantidade)
@@ -328,11 +304,6 @@ while(True):
     elif(tela == 'encerrar'):
         #Chama a função de caixa encerrado
         imprimir_caixa_encerrada(compras)
-    elif(tela == 'remover'):
-        #Chama a função de remover item
-        remover_item_codigo(compra,codigo_produto)
-
-    
 
     #Chama a função que imprime o rodapé e lê o comando digitado pela usuária
     opcao = imprimir_rodape()
@@ -342,52 +313,96 @@ while(True):
         #se for 's' para o looping e sai do sistema
         break
     elif(opcao == 'h'):
+        tela_memoria = tela
         #se for 'h' seta a variavel de tela para entrar na tela de ajuda
         tela = 'ajuda'
     elif(opcao == 'n'):
-        #se for 'n' seta a variavel de tela para entrar na tela de nova compra
-        tela = 'nova'
-    elif('r' in opcao):
-        #tela = 'remover'
-        codigo_produto= int(opcao.replace('r',''))
-        remover_item_codigo(compra,codigo_produto)   
+        if((tela=='') or (tela=='encerrar')):
+            #se for 'n' seta a variavel de tela para entrar na tela de nova compra
+            tela = 'nova'
+        else:
+            erro = 'Não é possivel abrir uma compra com outra em aberto'
     elif(opcao == 'f'):
-        #se for 'f' seta a variavel de tela para uma compra fechada
-        tela = 'fechada'
-        #calcula o total que deve ser pago na compra e guarda em uma variavel
-        total_calculado = valor_total_pagar(compra)
-        total_compra = total_calculado['valor']
-        descontos_compra = total_calculado['descontos']
+        if(tela == 'nova'):
+            #se for 'f' seta a variavel de tela para uma compra fechada
+            tela = 'fechada'
+            #calcula o total que deve ser pago na compra e guarda em uma variavel
+            fechamento_compra = valor_total_pagar(compra)
+            total_compra = fechamento_compra['total']
+            descontos_compra = fechamento_compra['descontos']
+        else:
+            erro = 'É preciso ter uma compra aberta para fechar'
+    elif(opcao == 'a'):
+        if((tela == 'nova') or (tela == 'encerrar')):
+            compra = []
+            tela = ''
+        else:
+            erro = 'Só é possivel abandonar uma compra aberta'
     elif(opcao == 'p'):
-        #se for 'p' fecha a compra e marca ela como paga
-        #adiciona a compra na lista e compras
-        compras.append({
-            'compra': compra,
-            'valor': total_compra,
-            'data': datetime.now()
-        })
-        #limpa a compra para ser usada novamente
-        compra = []
-        #volta para a tela inicial
-        tela = ''
+        if(tela == 'fechada'):
+            #se for 'p' fecha a compra e marca ela como paga
+            #adiciona a compra na lista e compras
+            compras.append({
+                'compra': compra,
+                'valor': total_compra,
+                'data': datetime.now()
+            })
+            #limpa a compra para ser usada novamente
+            compra = []
+            #volta para a tela inicial
+            tela = ''
+        else:
+            erro = 'É preciso fechar a compra antes de pagar ela'
     elif(opcao == 'e'):
-        #se for 'e' vai para a tela de encerrar caixa
-        tela = 'encerrar'
-    elif('x' in opcao):#x1 x2 x3 x4
-        quantidade = int(opcao.replace('x',''))
+        if(tela==''):
+            #se for 'e' vai para a tela de encerrar caixa
+            tela = 'encerrar'
+        else:
+            erro = 'Não é possivel encerrar o caisa com uma compra aberta'
+    elif('x' in opcao):
+        if(tela=='nova'):
+            try:
+                quantidade = int(opcao.replace('x',''))
+            except:
+                erro = 'A quantidade precisa ser um numero inteiro'
+        else:
+            erro = 'Esse comando só é possivel em uma compra'
+    elif('c' in opcao):
+        if(tela=='nova'):
+            try:
+                codigo_produto = int(opcao.replace('c',''))
+                for item in compra:
+                    if(item['codigo'] == codigo_produto):
+                        if(item['quantidade'] > 1):
+                            item['quantidade'] -= 1
+                        else:
+                            compra.remove(item)
+                        break
+                else:
+                    erro = 'Esse código não foi adicionado na compra'
+            except:
+                erro = 'A código precisa ser um numero inteiro'
+        else:
+            erro = 'Esse comando só é possivel em uma compra'
     else:
         #tentando converter a opção num inteiro
         try:
             #se eu conseguir eu tenho o código do produto
             codigo_produto = int(opcao)
-            produto = produto_codigo(codigo_produto)
-            compra.append({
-                'codigo':produto['codigo'],
-                'nome':produto['nome'],
-                'valor':produto['valor'],
-                'quantidade':quantidade
-            })
-            quantidade = 1
+            if(tela == 'nova'):
+                produto = produto_codigo(codigo_produto)
+                if(produto != None):
+                    compra.append({
+                        'codigo':produto['codigo'],
+                        'nome':produto['nome'],
+                        'valor':produto['valor'],
+                        'quantidade':quantidade
+                    })
+                    quantidade=1
+                else:
+                    erro='O código informando não está cadastrado'
+            else:
+                erro = 'Esse comando só é possivel em uma compra'
         except:
             #se eu não conseguir é pq ainda é uma opção invalida
             #se não for nenhum comando válido dá uma mensagem de erro
