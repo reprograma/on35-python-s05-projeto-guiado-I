@@ -88,6 +88,7 @@ produtos = [
     {'codigo':84,'nome':'Agrolizer 82 500ml','valor':5.00}
 ]
 
+
 def produto_codigo(codigo):
     for produto in produtos:
         if(produto['codigo'] == codigo):
@@ -210,6 +211,20 @@ def imprimir_nova_compra(compra,quantidade):
         pr.imprimir('Essa compra não tem itens ainda',tamanho=120,alinhar='centro')
         pr.pular_linha(quantidade=2)
 
+def remover_item_codigo(compra, codigo_produto):
+    item_encontrado = False
+    for item in compra:
+        if item["codigo"] == codigo_produto:
+            compra.remove(item)
+            pr.imprimir("O produto com o código", str(codigo_produto), "foi removido", alinhar="centro", tamanho=120, cor_texto="vermelho negrito")
+            item_encontrado = True
+            time.sleep(3)
+            break  # Saia do loop após remover o item
+    
+    if not item_encontrado:
+        pr.imprimir("O item com o código", str(codigo_produto), "não foi encontrado na compra",alinhar="centro", tamanho=120, cor_texto="vermelho negrito")
+        time.sleep(3)
+
 #Prepara a função para imprimir as compras do caixa quando ele for fechado
 def imprimir_caixa_encerrada(compras):
     #imprime a tabela com as compras feitas nesse caixa
@@ -311,6 +326,9 @@ while(True):
     elif(tela == 'encerrar'):
         #Chama a função de caixa encerrado
         imprimir_caixa_encerrada(compras)
+    elif(tela == 'remover'):
+        #Chama a função de remover item
+        remover_item_codigo(compra,codigo_produto)
 
     #Chama a função que imprime o rodapé e lê o comando digitado pela usuária
     opcao = imprimir_rodape()
@@ -325,6 +343,10 @@ while(True):
     elif(opcao == 'n'):
         #se for 'n' seta a variavel de tela para entrar na tela de nova compra
         tela = 'nova'
+    elif('r' in opcao):
+        #tela = 'remover'
+        codigo_produto= int(opcao.replace('r',''))
+        remover_item_codigo(compra,codigo_produto)   
     elif(opcao == 'f'):
         #se for 'f' seta a variavel de tela para uma compra fechada
         tela = 'fechada'
